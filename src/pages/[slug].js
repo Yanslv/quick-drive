@@ -37,12 +37,9 @@ export default function Sala({ initialFiles = [] }) {
       } else {
         setError('Erro no envio');
       }
-    } catch (e) {
-      console.error(e);
+    } catch (_) {
+      console.log('_:', _)
       setError('Erro ao enviar');
-    } finally {
-      setUploading(false);
-      setFile(null);
     }
   };
 
@@ -55,14 +52,21 @@ export default function Sala({ initialFiles = [] }) {
 
         {/* Lista de arquivos */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Arquivos disponíveis</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">
+            Arquivos disponíveis
+          </h2>
           {files.length === 0 ? (
             <p className="text-gray-500 italic">Nenhum arquivo ainda.</p>
           ) : (
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {files.map((fileName) => (
-                <li key={fileName} className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex items-center justify-between">
-                  <span className="text-gray-700 truncate max-w-[70%]">📎 {fileName}</span>
+                <li
+                  key={fileName}
+                  className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex items-center justify-between"
+                >
+                  <span className="text-gray-700 truncate max-w-[70%]">
+                    📎 {fileName}
+                  </span>
                   <a
                     href={`/uploads/${slug}/${fileName}`}
                     download
@@ -78,7 +82,9 @@ export default function Sala({ initialFiles = [] }) {
 
         {/* Upload */}
         <section className="bg-gray-50 p-6 rounded-md border border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-700 mb-4">Enviar novo arquivo</h2>
+          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+            Enviar novo arquivo
+          </h2>
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <input
               type="file"
@@ -115,6 +121,7 @@ export async function getServerSideProps(context) {
       initialFiles = fs.readdirSync(dir);
     }
   } catch (e) {
+    console.log('e:', e)
     initialFiles = [];
   }
 
