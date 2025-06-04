@@ -1,7 +1,6 @@
 import { IncomingForm } from 'formidable';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import fs from 'fs';
-import path from 'path';
 import mime from 'mime-types';
 
 export const config = {
